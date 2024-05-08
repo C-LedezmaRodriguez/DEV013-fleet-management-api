@@ -3,7 +3,6 @@ from ..models.models import Taxi
 
 taxi_routes = Blueprint('taxis', __name__)
 
-
 DEFAULT_PAGE = 1
 DEFAULT_PER_PAGE = 10
 
