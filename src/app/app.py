@@ -4,6 +4,7 @@ from config.config import config
 from ..models.models import db
 from ..routes.taxis import taxi_routes
 from ..routes.trajectories import trajectory_routes
+from ..routes.last_location import last_location_routes
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ db.init_app(app)
 # Register taxi routes
 app.register_blueprint(taxi_routes)
 app.register_blueprint(trajectory_routes)
+app.register_blueprint(last_location_routes)
 
 # Configure Flasgger
 swagger = Swagger(app)
