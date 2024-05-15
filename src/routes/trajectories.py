@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify, request
 from datetime import datetime
+from flask import Blueprint, jsonify, request
 from ..models.models import Trajectory
 
 trajectory_routes = Blueprint('trajectories', __name__)
