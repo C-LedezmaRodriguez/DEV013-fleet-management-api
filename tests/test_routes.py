@@ -1,5 +1,6 @@
-# test_app.py
+# test_routes.py
 from src.models.models import Taxi, Trajectory
+from datetime import datetime
 from .test_data import TAXIS_DATA, TRAJECTORIES_DATA
 
 def test_invalid_route(client):
@@ -39,4 +40,34 @@ def test_get_trajectories(client, mocker):
 
     assert response.status_code == 200
     assert response.json[:3]== TRAJECTORIES_DATA
-    
+
+
+def test_get_last_location(client):
+    # Realiza una solicitud al endpoint '/last_location'
+    response = client.get('/last_location')
+
+    # Verifica si la solicitud fue exitosa (código de estado 200)
+    assert response.status_code == 200
+
+    # Verifica si los datos devueltos son correctos
+    data = response.json
+
+    # Comprueba que la respuesta contiene la información esperada
+    assert isinstance(data, list)
+
+    # Verifica que haya al menos un elemento en la lista de ubicaciones
+    assert len(data) > 0
+
+    # Verifica si los datos devueltos tienen el formato correcto
+    for location in data:
+        assert 'taxi_id' in location
+        assert 'plate' in location
+        assert 'latitude' in location
+        assert 'longitude' in location
+        assert 'last_date' in location
+
+        assert isinstance(location['last_date'], str)
+        # Convert the date string to ISO format using strftime()
+        iso_date = datetime.strptime(location['last_date'], '%a, %d %b %Y %H:%M:%S %Z').strftime('%Y-%m-%dT%H:%M:%SZ')
+        # Use the converted ISO date
+        assert datetime.fromisoformat(iso_date)
