@@ -14,7 +14,7 @@ def get_last_location():
         description: A list of the last reported locations of each taxi.
         schema:
           type: array
-          items:
+          items:=
             type: object
             properties:
               taxi_id:
@@ -94,3 +94,4 @@ def get_last_location():
     #         })
 
     return jsonify(filtered_locations)
+

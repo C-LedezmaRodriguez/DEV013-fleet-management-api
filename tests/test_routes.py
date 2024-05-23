@@ -64,10 +64,10 @@ def test_get_last_location(client):
         assert 'plate' in location
         assert 'latitude' in location
         assert 'longitude' in location
-        assert 'last_date' in location
+        assert 'timestamp' in location
 
-        assert isinstance(location['last_date'], str)
+        assert isinstance(location['timestamp'], str)
         # Convert the date string to ISO format using strftime()
-        iso_date = datetime.strptime(location['last_date'], '%a, %d %b %Y %H:%M:%S %Z').strftime('%Y-%m-%dT%H:%M:%SZ')
+        iso_date = datetime.strptime(location['timestamp'], '%a, %d %b %Y %H:%M:%S %Z').strftime('%Y-%m-%dT%H:%M:%SZ')
         # Use the converted ISO date
         assert datetime.fromisoformat(iso_date)
